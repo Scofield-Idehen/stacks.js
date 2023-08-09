@@ -1,12 +1,12 @@
 ---
-title: Integrate Stacking Delegation
+Title: Integrate Stacking Delegation
 ---
 
 import StacksjsStartersNote from '../includes/\_stacks.js-starters-note.mdx';
 
 <StacksjsStartersNote/>
 
-In this guide, you'll learn how to integrate the Stacking delegation flow by interacting with the respective smart contract, as well as reading data from the Stacks blockchain.
+In this guide, you'll learn how to integrate the Stacking delegation flow by interacting with the respective smart contract and reading data from the Stacks blockchain.
 
 This guide highlights the following capabilities:
 
@@ -16,9 +16,9 @@ This guide highlights the following capabilities:
 
 ## Prerequisites
 
-First, you'll need to understand the [Stacking delegation mechanism](https://docs.stacks.co/understand-stacks/stacking).
+First, you must understand the [Stacking delegation mechanism](https://docs.stacks.co/understand-stacks/stacking).
 
-You'll also need [NodeJS](https://nodejs.org/en/download/) `12.10.0` or higher to complete this tutorial. You can verify your installation by opening up your terminal and run the following command:
+To complete this tutorial, you'll also need [NodeJS](https://nodejs.org/en/download/) `12.10.0` or higher. You can verify your installation by opening up your terminal and running the following command:
 
 ```sh
 node --version
@@ -95,17 +95,17 @@ const delegetateResponse = await client.delegateStx({
 // }
 ```
 
-This method calls the [`delegate-stx`](https://docs.stacks.co/references/stacking-contract#delegate-stx) method of the Stacking contract. Note, that the amount can be higher or lower than the current account balance. Delegation does not yet lock the STX tokens, users can still transfer them.
+This method calls the [`delegate-stx`](https://docs.stacks.co/references/stacking-contract#delegate-stx) method of the Stacking contract. Note that the amount can be higher or lower than the current account balance. Delegation does not lock the STX tokens, and users can transfer them.
 
 :::tip
 To avoid handling private keys, it is recommended to use the [Stacks Wallet](https://www.hiro.so/wallet) to sign the delegation transaction
 :::
 
-**Congratulations!** With the completion of this step, you successfully learnt how to use the Stacking library to delegate STX tokens as an account holder.
+**Congratulations!** After completing this step, you successfully learned how to use the Stacking library to delegate STX tokens as an account holder.
 
 ## Optional: Revoke delegation rights
 
-Delegators will be able to Stack STX tokens on the account holder's behalf until either the set burn height is reached or the account holder revokes the rights.
+Delegators can Stack STX tokens on the account holder's behalf until the set burn height is reached or the account holder revokes the rights.
 
 To revoke delegation rights, the account holder can call the `revokeDelegatestx` method.
 
@@ -192,13 +192,13 @@ const delegetateCommitResponse = await delegatorClient.stackAggregationCommit({
 // }
 ```
 
-This method calls the [`stack-aggregation-commit`](https://docs.stacks.co/references/stacking-contract#stack-aggregation-commit) function of the Stacking contract. This call also includes locked Stacks from previous cycles. This is the second part of delegated stacking for the delegator.
+This method calls the Stacking contract's [stack-aggregation-commit`](https://docs.stacks.co/references/stacking-contract#stack-aggregation-commit) function. This call also includes locked Stacks from previous cycles. This is the second part of delegated stacking for the delegator.
 
 This method has to be called once for each reward cycle, even if all account holders have already locked their Stacks for several cycles in a row. If no new account holders are added to the pool, then this method call can be made even several cycles before the actual rewards cycle.
 
-Locking delegated Stacks together with a aggregation commits can be done several times before the cycle starts as long as the minimum increment amount of locked Stacks is met.
+Locking delegated Stacks and aggregation commits can be done several times before the cycle starts as long as the minimum increment amount of locked Stacks is met.
 
-**Congratulations!** With the completion of this step, you successfully learnt how to use the Stacking library to ...
+**Congratulations!** After completing this step, you successfully learned how to use the Stacking library to ...
 
 - Stack STX token on behalf of an account holder
 - Commit to Stacking with all delegated STX tokens
