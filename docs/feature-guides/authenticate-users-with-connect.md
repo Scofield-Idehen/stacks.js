@@ -21,7 +21,7 @@ npm install @stacks/connect
 
 ## Authentication
 
-Authentication provides a way for users to identify themselves to an app while retaining complete control over their credentials and personal details. It can be integrated alone or used in conjunction with [transaction signing](/build-apps/transaction-signing) and [data storage](/build-apps/data-storage), for which it is a prerequisite.
+Authentication allows users to identify themselves to an app while retaining complete control over their credentials and personal details. It can be integrated alone or used in conjunction with [transaction signing](/build-apps/transaction-signing) and [data storage](/build-apps/data-storage), for which it is a prerequisite.
 
 Users who register for your app can subsequently authenticate to any other app with support for the [Blockchain Naming System](https://docs.stacks.co/build-apps/references/bns) and vice versa.
 
@@ -45,11 +45,11 @@ Apps may request any of the following scopes:
 | Scope          | Definition                                                                      |
 | -------------- | ------------------------------------------------------------------------------- |
 | `store_write`  | Read and write data to the user's Gaia hub in an app-specific storage bucket.   |
-| `publish_data` | Publish data so other users of the app can discover and interact with the user. |
+| `publish_data` | Publish data so other app users can discover and interact with the user. |
 
 The default scopes are `['store_write']` if no `scopes` array is provided when initializing the `appConfig` object.
 
-We recommend you initiate the `userSession` object just once in your app then reference it using imports where needed.
+We recommend you initiate the `userSession` object once in your app and then reference it using imports where needed.
 
 ### Initiate Authentication Flow
 
@@ -85,11 +85,11 @@ function authenticate() {
 
 The `showConnect` function accepts a number of properties within a parameter object such as:
 
-- The app's `name` and `icon`: provided as strings comprising the `appDetails` object property.
-- The `redirectTo` string: used to provide a URL to which the user should be redirected upon successful authentication. The `onFinish` callback serves a similar purpose by handling successful authentication within a context of a popup window.
+- The app's `name` and `icon`: are provided as strings comprising the `appDetails` object property.
+- The `redirectTo` string: is used to provide a URL to which the user should be redirected upon successful authentication. The `onFinish` callback serves a similar purpose by handling successful authentication within a context of a popup window.
 - The `userSession` object initiated above.
 
-Once the user selects the button presented in this popup, they are passed to the Stacks Wallet for authenticator with the `authRequest` token as a GET parameter. From there they can confirm authentication and generate a new _Secret Key_ or Stacks identity before doing so, as needed before coming back to the app.
+Once the user selects the button presented in this popup, they are passed to the Stacks Wallet for authenticator with the `authRequest` token as a GET parameter. From there, they can confirm authentication and generate a new _Secret Key_ or Stacks identity before doing so, as needed, before coming back to the app.
 
 ### Handle Pending Authentication
 
@@ -112,11 +112,11 @@ window.onload = function () {
 };
 ```
 
-The `isSignInPending` method of the `userSession` object is used to detect whether the user needs to handle a pending authentication state upon page load.
+The `isSignInPending` method of the `userSession` object detects whether the user needs to handle a pending authentication state upon page load.
 
 The `handlePendingSignIn` method is then used to handle that state, returning a `userData` object with all the data needed to save the user's information into their session.
 
-The authenticated state can later be detected by the `isUserSignedIn` method in case any particular handling is needed then.
+The authenticated state can later be detected by the `isUserSignedIn` method if any particular handling is needed.
 
 :::note
 It's especially important to implement `handlePendingSignIn` within the context of mobile apps.
@@ -142,7 +142,7 @@ When a user chooses to authenticate an app, it sends the `authRequest` token to 
 
 `https://wallet.hiro.so/...?authRequest=j902120cn829n1jnvoa...`
 
-When the authenticator receives the request, it generates an `authResponse` token for the app using an _ephemeral transit key_ . The ephemeral transit key is just used for the particular instance of the app, in this case, to sign the `authRequest`.
+When the authenticator receives the request, it generates an `authResponse` token for the app using an _ephemeral transit key_ . In this case, the ephemeral transit key is just used for the particular instance of the app to sign the `authRequest`.
 
 The app stores the ephemeral transit key during request generation. The public portion of the transit key is passed in the `authRequest` token. The authenticator uses the public portion of the key to encrypt an _app private key_ which is returned via the `authResponse`.
 
@@ -150,7 +150,7 @@ The authenticator generates the app private key from the user's _identity addres
 
 1. It is used to create credentials that give the app access to a storage bucket in the user's Gaia hub
 2. It is used in the end-to-end encryption of files stored for the app in the user's Gaia storage.
-3. It serves as a cryptographic secret that apps can use to perform other cryptographic functions.
+3. It is a cryptographic secret that apps can use to perform other cryptographic functions.
 
 Finally, the app private key is deterministic, meaning that the same private key will always be generated for a given Stacks address and domain.
 
@@ -160,7 +160,7 @@ The first two of these functions are particularly relevant to [data storage with
 
 ### Key Pairs
 
-Authentication with Stacks makes extensive use of public key cryptography generally and ECDSA with the `secp256k1` curve in particular.
+Authentication with Stacks generally uses public key cryptography and ECDSA with the `secp256k1` curve in particular.
 
 The following sections describe the three public-private key pairs used, including how they're generated, where they're used and to whom private keys are disclosed.
 
@@ -171,17 +171,17 @@ need to be passed from the authenticator to the app during the
 authentication process. It is randomly generated by the app at the beginning of
 the authentication response.
 
-The public key that corresponds to the transit private key is stored in a single
+The public key corresponding to the transit private key is stored in a single
 element array in the `public_keys` key of the authentication request token. The
-authenticator encrypts secret data such as the app private key using this
+authenticator encrypts secret data such as the app's private key using this
 public key and sends it back to the app when the user signs in to the app. The
 transit private key signs the app authentication request.
 
 #### Identity Address Private Key
 
 The identity address private key is derived from the user's keychain phrase and
-is the private key of the Stacks username that the user chooses to use to sign in
-to the app. It is a secret owned by the user and never leaves the user's
+is the private key of the Stacks username the user chooses to use to sign in
+to the app. It is a secret the user owns and never leaves the user's
 instance of the authenticator.
 
 This private key signs the authentication response token for an app to indicate that the user approves sign in to that app.
@@ -260,4 +260,4 @@ To decode a token and see what data it holds:
    }
    ```
 
-   The `iss` property is a decentralized identifier or `did`. This identifies the user and the username to the app. The specific `did` is a `btc-addr`.
+   The `iss` property is a decentralized identifier or `did`. This identifies the user and the username of the app. The specific `did` is a `btc-addr`.
