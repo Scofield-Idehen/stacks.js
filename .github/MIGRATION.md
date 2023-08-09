@@ -19,12 +19,12 @@
 ### Breaking Changes
 
 - To reduce the bundle sizes of applications using Stacks.js, we are switching from Buffer (a polyfill to match Node.js APIs) to Uint8Arrays (which Buffers use in the background anyway). [Read more...](#buffer-to-uint8array)
-- To allow message signing on Ledger hardware wallets, we are changing the message signing prefix. [Read more...](#message-signing-prefix)
-- Post-conditions for NFTs were renamed to be more clear: `Owns` to `DoesNotSend`, `DoesNotOwn` to `Sends`.
+- We are changing the message signing prefix to allow message signing on Ledger hardware wallets. [Read more...](#message-signing-prefix)
+- Post-conditions for NFTs were renamed to be clearer: `Owns` to `DoesNotSend`, `DoesNotOwn` to `Sends`.
 
 #### Buffer to Uint8Array
 
-To make the switch easier we have introduced a bunch of methods for converting between strings and Uint8Arrays: `hexToBytes`, `bytesToHex`, `utf8ToBytes`, `bytesToUtf8`, `asciiToBytes`, `bytesToAscii`, and `concatBytes`.
+To make the switch easier, we have introduced a bunch of methods for converting between strings and Uint8Arrays: `hexToBytes`, `bytesToHex`, `utf8ToBytes`, `bytesToUtf8`, `asciiToBytes`, `bytesToAscii`, and `concatBytes`.
 To migrate, switch `Buffer` code to instead use `Uint8Array`.
 The following code segments are the equivalent calls using Uint8Array rather than Buffers and assuming imports from `@stacks/common` — `import { hexToBytes, bytesToHex, utf8ToBytes, bytesToUtf8, asciiToBytes, bytesToAscii, concatBytes } from "@stacks/common"`
 
@@ -79,10 +79,10 @@ bytesToHex(Uint8Array.from([222, 173, 190, 239])); // 'deadbeef'
 #### Message Signing Prefix
 
 The message signing prefix was changed from `Stacks Message Signing` to `Stacks Signed Message`.
-The change relates to the functions `verifyMessageSignature`, `encodeMessage`, `decodeMessage`, and `hashMessage`.
-The `verifyMessageSignature` functions was updated to verify against both the old and the new prefix (for unhashed message-input).
+The change relates to the functions `verifyMessageSignature,` `encodeMessage`, `decodeMessage`, and `hashMessage`.
+The `verifyMessageSignature` function was updated to verify against both the old and the new prefix (for unhashed message-input).
 This will generate a different hash/signature from the same input compared to previous versions of Stacks.js.
-If you have previously stored messages/signatures and compare to freshly generated ones, the messages/signatures will not match to previously stored.
+If you have previously stored messages/signatures and compare them to freshly generated ones, the messages/signatures will not match to previously stored.
 
 ---
 
