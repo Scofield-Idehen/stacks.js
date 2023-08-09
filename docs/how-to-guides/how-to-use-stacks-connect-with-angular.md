@@ -2,7 +2,7 @@
 title: Angular Authenticator
 ---
 
-In this tutorial, you'll learn how to work with Stacks Connect when using [Angular](https://angular.io/) as your framework of choice. It builds on what you've learnt in the [Authentication Overview](/build-apps/authentication).
+In this tutorial, you'll learn how to work with Stacks Connect using [Angular](https://angular.io/) as your framework of choice. It builds on your knowledge in the [Authentication Overview](/build-apps/authentication).
 
 :::note
 This article presumes some familiarity with [Angular](https://angular.io/), as well as [Reactive Extensions (RxJS)](https://rxjs.dev/).
@@ -10,7 +10,7 @@ This article presumes some familiarity with [Angular](https://angular.io/), as w
 
 ### Prerequisites
 
-We'll be using the [Angular CLI](https://cli.angular.io/) to scaffold the project, so make sure you've got the latest version installed. We're using version `10.2.0`.
+We'll be using the [Angular CLI](https://cli.angular.io/) to scaffold the project, so ensure you've installed the latest version. We're using version `10.2.0`.
 
 ```sh
 npm install --global @angular/cli
@@ -24,9 +24,9 @@ Use the `ng new` command to scaffold a new project. We've named ours `ng-stacks-
 ng new --minimal --inline-style --inline-template
 ```
 
-You'll be asked to enter some preferences: whether your app with use routing, and whether you want to use a CSS preprocessor like SASS. For sake of this tutorial, we're keeping things simple. No routing. No preprocessing.
+You'll be asked to enter some preferences: whether your app uses routing and whether you want to use a CSS preprocessor like SASS. For the sake of this tutorial, we're keeping things simple. No routing. No preprocessing.
 
-Inside the newly created `ng-stacks-connect` directory, let's boot up the development server which defaults to [localhost:4200](http://localhost:4200).
+Inside the newly created `ng-stacks-connect` directory, let's boot up the development server, which defaults to [localhost:4200](http://localhost:4200).
 
 ```sh
 cd ng-stacks-connect
@@ -70,7 +70,7 @@ This does 3 things:
 
 ## Step 4: Authentication flow
 
-Now everything's set up, we're ready to create our auth components
+Now everything's set up; we're ready to create our auth components.
 
 We can use the CLI's generator to scaffold components.
 
@@ -112,7 +112,7 @@ export class AppComponent {
 }
 ```
 
-Here we're using an Rxjs `Subject` to represent a stream of sign in events. `stacksAuth$` will emit when we should trigger the sign in action.
+Here we're using an Rxjs `Subject` to represent a stream of sign-in events. `stacksAuth$` will emit when we should trigger the sign-in action.
 
 ### Authentication
 
@@ -165,7 +165,7 @@ The output of `authResponse$` can be added to the template for debugging purpose
 
 ### Loading text
 
-One problem with the current implementation is that there's a network delay while waiting to load the Connect library. Let's keep track of the loading state and display some text in the sign in button component. You'll need to `import { tap, switchMap } from 'rxjs/operators';`.
+One problem with the current implementation is that there's a network delay while waiting to load the Connect library. Let's keep track of the loading state and display some text in the sign-in button component. You'll need to `import { tap, switchMap } from 'rxjs/operators';`.
 
 ```typescript
 // src/app/app.component.ts
