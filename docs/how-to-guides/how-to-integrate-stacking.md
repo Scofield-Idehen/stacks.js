@@ -1,12 +1,12 @@
 ---
-title: Integrating Stacking
+Title: Integrating Stacking
 ---
 
 import StacksjsStartersNote from '../includes/\_stacks.js-starters-note.mdx';
 
 <StacksjsStartersNote/>
 
-In this tutorial, you'll learn how to integrate Stacking by interacting with the respective smart contract, as well as reading data from the Stacks blockchain.
+In this tutorial, you'll learn how to integrate Stacking by interacting with the respective smart contract and reading data from the Stacks blockchain.
 
 This tutorial highlights the following capabilities:
 
@@ -17,14 +17,14 @@ This tutorial highlights the following capabilities:
 - Display stacking status
 
 :::tip
-Alternatively to integration using JS libraries, you can use the [Rust CLI](https://gist.github.com/kantai/c261ca04114231f0f6a7ce34f0d2499b) or [JS CLI](/tutorials/stacking-using-cli).
+Alternatively, to integration using JS libraries, you can use the [Rust CLI](https://gist.github.com/kantai/c261ca04114231f0f6a7ce34f0d2499b) or [JS CLI](/tutorials/stacking-using-cli).
 :::
 
 ## Prerequisites
 
-First, you'll need to understand the [Stacking mechanism](https://docs.stacks.co/understand-stacks/stacking).
+First, you must understand the [Stacking mechanism](https://docs.stacks.co/understand-stacks/stacking).
 
-You'll also need [NodeJS](https://nodejs.org/en/download/) `12.10.0` or higher to complete this tutorial. You can verify your installation by opening up your terminal and run the following command:
+To complete this tutorial, you'll also need [NodeJS](https://nodejs.org/en/download/) `12.10.0` or higher. You can verify your installation by opening up your terminal and running the following command:
 
 ```bash
 node --version
@@ -36,7 +36,7 @@ In this tutorial, we'll implement the Stacking flow laid out in the [Stacking gu
 
 ## Step 1: Integrate libraries
 
-Install the stacking, network, transactions libraries and bn.js for large number handling:
+Install the stacking, network, transactions libraries, and bn.js for large number handling:
 
 ```shell
 npm install --save @stacks/stacking @stacks/network @stacks/transactions bn.js
@@ -82,9 +82,9 @@ Review the [accounts guide](https://docs.stacks.co/understand-stacks/accounts) f
 
 ## Step 3: Display stacking info
 
-In order to inform users about the upcoming reward cycle, we can use the following methods to obtain information for Stacking:
+To inform users about the upcoming reward cycle, we can use the following methods to obtain information for Stacking:
 
-With the obtained PoX info, you can present whether Stacking has been executed in the next cycle, when the next cycle begins, the duration of a cycle, and the minimum microstacks required to participate:
+With the obtained PoX info, you can present whether Stacking has been executed in the next cycle when the next cycle begins, the duration of a cycle, and the minimum micro stacks required to participate:
 
 ```js
 // will Stacking be executed in the next cycle?
@@ -154,7 +154,7 @@ const hasMinStxAmount = await client.hasMinimumStx();
 // true or false
 ```
 
-For testing purposes, you can use the faucet to obtain testnet STX tokens. Replace `<stxAddress>` below with your address:
+You can use the faucet to obtain testnet STX tokens for testing purposes. Replace `<stxAddress>` below with your address:
 
 ```shell
 curl -XPOST "https://stacks-node-api.testnet.stacks.co/extended/v1/faucets/stx?address=<stxAddress>&stacking=true"
@@ -177,7 +177,7 @@ unlockingAt.setSeconds(unlockingAt.getSeconds() + cycleDuration * numberOfCycles
 
 At this point, your app shows Stacking details. If Stacking will be executed and the user has enough funds, the user should be asked to provide input for the amount of microstacks to lockup and a Bitcoin address to receive the pay out rewards.
 
-With this input, and the data from previous steps, we can determine the eligibility for the next reward cycle:
+With this input and the data from previous steps, we can determine the eligibility for the next reward cycle:
 
 ```js
 // user supplied parameters
@@ -201,7 +201,7 @@ const stackingEligibility = await client.canStack({
 The eligibility check assumes the user will be stacking the maximum balance available in the account. The eligibility check is a read-only function call to the PoX smart contract which does not require broadcasting a transaction
 :::
 
-If the user is eligible, the stacking action should be enabled on the UI. If not, the respective error message should be shown to the user.
+The stacking action should be enabled on the UI if the user is eligible. If not, the respective error message should be shown to the user.
 
 ## Step 5: Lock STX to stack
 
@@ -243,7 +243,7 @@ The transaction completion will take several minutes. Only one stacking transact
 
 ## Step 6: Confirm lock-up
 
-The new transaction will not be completed immediately. It'll stay in the `pending` status for a few minutes. We need to poll the status and wait until the transaction status changes to `success`. We can use the [Stacks Blockchain API client library](/get-started/stacks-blockchain-api#javascript-client-library) to check transaction status.
+The new transaction will not be completed immediately. It'll stay in the `pending` status for a few minutes. We must poll the status and wait until the transaction status changes to `success.` We can use the [Stacks Blockchain API client library](/get-started/stacks-blockchain-api#javascript-client-library) to check transaction status.
 
 ```js
 const { TransactionsApi } = require('@stacks/blockchain-api-client');
@@ -287,7 +287,7 @@ await sub.unsubscribe();
 
 ## Step 6: Display Stacking status
 
-With the completed transactions, Stacks tokens are locked up for the lockup duration. During that time, your app can display the following details: unlocking time, amount of Stacks locked, and bitcoin address used for rewards.
+Stack tokens are locked up for the lockup duration with the completed transactions. During that time, your app can display the following details: unlocking time, amount of Stacks locked, and bitcoin address used for rewards.
 
 ```js
 const stackingStatus = await client.getStatus();
@@ -314,9 +314,9 @@ const stackingStatus = await client.getStatus();
 The `pox_address` property is the PoX contract's internal representation of the reward BTC address.
 :::
 
-To display the unlocking time, you need to use the `firstRewardCycle` and the `lockPeriod` fields.
+You must use the `firstRewardCycle` and the `lockPeriod` fields to display the unlocking time.
 
-**Congratulations!** With the completion of this step, you successfully learnt how to ...
+**Congratulations!** With the completion of this step, you successfully learned how to ...
 
 - Generate Stacks accounts
 - Display stacking info
@@ -326,7 +326,7 @@ To display the unlocking time, you need to use the `firstRewardCycle` and the `l
 
 ## Optional: Rewards
 
-Currently, the Stacking library does not provide methods to get the paid rewards for a set address. However, the [Stacks Blockchain API exposes endpoints](https://docs.hiro.so/api#tag/Burnchain) to get more details.
+Currently, the Stacking library does not provide methods to get paid rewards for a set address. However, the [Stacks Blockchain API exposes endpoints](https://docs.hiro.so/api#tag/Burnchain) to get more details.
 
 As an example, if you want to get the rewards paid to `btcAddress`, you can make the following API call:
 
